@@ -6,22 +6,21 @@ function run() {
     console.log('--------run----------');
 
     var test = 'hello';
-    console.log(test);
+    console.log(test); // hello
 
-    printHello(test);
-
+    printHello(test); // printHello is undefined
     function printHello(value) {
-        console.log(value); // hello
+        console.log(value); // wont be called
     }
 
-    printString(test);
+    // printString(test); // printString is undefined
     var printString = function (value) {
-        console.log(value); // hello
+        console.log(value); // wont be called
     }
 
     return 'ok';
 }
-// run();
+run();
 
 // Two take aways from this :-
 // 1. All the function definition is hoisted to the top of the scope
@@ -33,7 +32,6 @@ run2();
 function run2() {
     var x;
     var test;
-
     function printHello(value) {
         console.log(value);
     }
@@ -54,50 +52,50 @@ function run2() {
     return 'ok';
 }
 
-function run3() {
-    console.log('-----------run3-----------');
-    var fn = function () {
-        console.log('func 1');
-    }
-    fn();
-    fn2();
-    console.log(abc);
-    var abc = 50;
-    var fn = function () {
-        console.log('func 2');
-    }
+// function run3() {
+//     console.log('-----------run3-----------');
+//     var fn = function () {
+//         console.log('func 1');
+//     }
+//     fn();
+//     fn2();
+//     console.log(abc);
+//     var abc = 50;
+//     var fn = function () {
+//         console.log('func 2');
+//     }
 
-    function fn2() {
-        console.log('func 3');
-    }
-}
-//  run3();
+//     function fn2() {
+//         console.log('func 3');
+//     }
+// }
+// //  run3();
 
-// above function run3 will be converted to this functon run4
-function run4() {
-    console.log("-------- run 4 ------------");
-    var fn;
-    var abc;
-    var fn;
+// // above function run3 will be converted to this functon run4
+// function run4() {
+//     console.log("-------- run 4 ------------");
+//     var fn;
+//     var abc;
+//     var fn;
 
-    function fn2() {
-        console.log('func 3');
-    }
-    fn = function () {
-        console.log('func 1');
-    }
-    fn();
-    fn2();
-    console.log(fn);
-    console.log(abc);
-    abc = 50;
-    fn = function () {
-        console.log('func 2');
-    }
-}
+//     function fn2() {
+//         console.log('func 3');
+//     }
+//     fn = function () {
+//         console.log('func 1');
+//     }
+//     fn();
+//     fn2();
+//     console.log(fn);
+//     console.log(abc);
+//     abc = 50;
+//     fn = function () {
+//         console.log('func 2');
+//     }
+// }
 
-//  run4();
+// //  run4();
 
-// // var abc = "abc";
-// // var abc;
-// // console.log('abc -', abc);
+// // // var abc = "abc";
+// // // var abc;
+// // // console.log('abc -', abc);

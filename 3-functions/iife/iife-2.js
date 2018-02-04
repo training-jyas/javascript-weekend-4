@@ -1,5 +1,4 @@
-var a2= (function(){
-    var a = 13;
-    console.log('value of a =', a);
-    return a;
+var module2 = (function () {
+    var test = 'iife2';
+    return test;
 })();
