@@ -4,21 +4,16 @@
 // 2. parent scope cannot access the child scope.
 // 3. child scope can access the parent scope
 var global = 'abc';
+function a() {
+    var global1 = 'def';
 
-function test() {
-    var local = 'def';
-    console.log('global : global : ', global);
-    console.log('test : local : ', local);
-
-    function inner() {
-        var inner = 'ghi';
-        console.log('global : global : ', global);
-        console.log('test : local : ', local);
-        console.log('inner : inner : ', inner);
+    function b() {
+        var global2 = 'ghi';
+        console.log(global1);
+        console.log(global);
     }
-    inner();
+    b();
 }
+// a();
+// window.a();
 
-test();
-console.log('global : global', global);
-console.log('global : local', local);
