@@ -12,7 +12,8 @@ function checkIfEven(num, success, failure ) {
     }
 }
 checkIfEven(20);
-checkIfEven(31, 77787, failure);
+checkIfEven(30, success, failure);
+checkIfEven(31, success, failure);
 
 function success(msg) {
     console.log('success');
@@ -24,10 +25,13 @@ function failure (msg) {
     console.log(msg);
 }
 
+// var arr = [1, 2, 3];
+// arr.forEach();
 
 // setTimeout
-setTimeout(function(){
+var func = function(){
     console.log('set time out is called');
-}, 5000);
+};
+setTimeout(func, 3000);
 
 console.log('log below the set time out call');
