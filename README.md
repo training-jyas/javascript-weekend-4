@@ -23,14 +23,31 @@ Shradha, Sushant, Mudassar, Himanshu, Pooja, Sashikala
 - [x] Overriding
 
 ## Conditions and Loops
-- [ ] If Then Else
-- [ ] Switch Case
-- [ ] Loops (For, While, Do While)
+- [X] If Then Else
+- [X] Switch Case
+- [X] Loops (For, While, Do While)
 
 ## Operators
-- [ ] == operator
-- [ ] === operator
-- [ ] == vs ===
-- [ ] Unary operator
-- [ ] Ternary operator
-- [ ] Understanding arithmetic operators for strings
+- [X] == operator
+- [X] === operator
+- [X] == vs ===
+- [X] Unary operator
+- [X] Ternary operator
+- [X] Understanding arithmetic operators for strings
+
+## Json
+- [X] done
+
+## this
+- [X] done
+
+## Objects
+- [X] done
+
+## Promise
+- [X] done
+
+## Web development handson
+- [X] done
+
+## Ajax
