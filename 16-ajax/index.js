@@ -6,28 +6,7 @@ var idElem = document.getElementById('employee-id');
 var createBtnElem = document.getElementById('create-btn');
 var updateBtnElem = document.getElementById('update-btn');
 var cancelBtnElem = document.getElementById('cancel-btn');
-
-var employees = [{
-    name: 'Sushant',
-    designation: 'SE',
-    gender: 'male',
-    _id: 1
-}, {
-    name: 'Tousif',
-    designation: 'SE',
-    gender: 'male',
-    _id: 2
-}, {
-    name: 'Pooja',
-    designation: 'SE',
-    gender: 'female',
-    _id: 3
-}, {
-    name: 'Shashikala',
-    designation: 'SE',
-    gender: 'female',
-    _id: 4
-}];
+var employees = [];
 
 (function() {
     getEmployees();
@@ -38,8 +17,12 @@ function populateTable(employees) {
     var tbodyElem = tableElem.getElementsByTagName('tbody')[1];
     var tbodyContent = '';
     employees.forEach(function (item, index) {
-        var trElem = '<tr><td><span class="employee-name" rel="' + item._id + '">' + item.name + '</span></td><td>' + item.designation + '</td><td>' + item.gender + '</td><td><i class="glyphicon glyphicon-trash" rel="' + item._id + '"></i></td></tr>';
+        var trElem = 
+        '<tr>' +
+        '<td>' +
+        '<span class="employee-name" rel="' + item._id + '">' + item.name + '</span></td><td>' + item.designation + '</td><td>' + item.gender + '</td><td><i class="glyphicon glyphicon-trash" rel="' + item._id + '"></i></td></tr>';
         tbodyContent += trElem;
+        // rel is a custom attribute here to get the reference to id of the employee
     });
     tbodyElem.innerHTML = tbodyContent;
     addEvents();
@@ -113,16 +96,25 @@ function cancel() {
 }
 
 function getEmployees() {
-    populateTable(employees);
+    get()
+    .then(function(data) {
+        var employeeList = [];
+        for (var key in data) {
+            if (data.hasOwnProperty(key)) {
+                var each = data[key];
+                each['_id'] = key;
+                employeeList.push(each);
+            }
+        }
+        employees = employeeList;
+        populateTable(employees);
+    })
+    .catch(function(error) {
+        console.log('error in fetch', error);
+    });
 }
 
 function getEmployeeObjectFromForm(isCreate) {
-    var id = '';
-    if (isCreate) {
-        id = employees.length + 1;
-    } else {
-        id = idElem.value
-    }
     var gender = 'male';
     genderElems.forEach(function(item) {
         item.checked ? gender = item.value : null;
@@ -130,8 +122,7 @@ function getEmployeeObjectFromForm(isCreate) {
     var employee = {
         name: nameElem.value,
         designation: designationElem.value,
-        gender: gender,
-        _id: id
+        gender: gender
     };
     return employee;
 }
@@ -139,31 +130,29 @@ function getEmployeeObjectFromForm(isCreate) {
 function createEmployee() {
     var employeeToAdd = getEmployeeObjectFromForm(true);
     employees.push(employeeToAdd); // here we will make the actual service call
-    getEmployees();
-    console.log(employeeToAdd);
+    add(employeeToAdd)
+    .then(function(data) {
+        cancel();
+        getEmployees();
+    });
 }
 
 function updateEmployee() {
     var employeeToUpdate = getEmployeeObjectFromForm(false);
     console.log(employeeToUpdate);
-    employees.forEach(function(item) {
-        if (item._id == employeeToUpdate._id) {
-            item.name = employeeToUpdate.name;
-            item.designation = employeeToUpdate.designation;
-            item.gender = employeeToUpdate.gender;
-        }
-    });
-    cancel();
-    getEmployees();
+    update(idElem.value, employeeToUpdate)
+    .then(function(data) {
+        cancel();
+        getEmployees();
+    })
+    .catch();
 }
 
 function deleteEmployee(id) {
-    var indexToDelete = null;
-    employees.forEach(function(item, index) {
-        if (item._id == id) {
-            indexToDelete = index;
-        }
-    });
-    employees.splice(indexToDelete, 1); // we have to make the actual service call here
-    getEmployees();
+    remove(id)
+    .then(function(data) {
+        cancel();
+        getEmployees();
+    })
+    .catch()   
 }
